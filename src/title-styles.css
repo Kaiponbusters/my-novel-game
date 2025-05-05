@@ -32,6 +32,13 @@
   align-items: center;
 }
 
+/* GitHub Pagesとローカル両方で動作するためのバックアップ */
+@supports (background-image: url('src/assets/images/bg_title_screen.jpg')) {
+  .title-container {
+    background-image: url('src/assets/images/bg_title_screen.jpg');
+  }
+}
+
 .overlay {
   position: absolute;
   top: 0;

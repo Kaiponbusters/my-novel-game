@@ -6,15 +6,16 @@
   <title>ビジュアルノベルゲーム</title>
   <link rel="stylesheet" href="dist/styles.css">
   <meta name="description" content="女性向けの短編ビジュアルノベルゲーム">
+  <base href="./">
 </head>
 <body>
   <!-- ゲームコンテナ -->
   <div id="game-container">
     <!-- 背景イメージ -->
-    <img id="background" src="src/assets/images/bg_classroom.jpg" alt="背景" />
+    <img id="background" src="src/assets/images/bg_classroom.jpg" alt="背景" onerror="this.src='assets/images/bg_classroom.jpg'"/>
     
     <!-- キャラクター -->
-    <img id="character" src="src/assets/images/ren_normal.png" alt="キャラクター" class="fade-in" />
+    <img id="character" src="src/assets/images/ren_normal.png" alt="キャラクター" class="fade-in" onerror="this.src='assets/images/ren_normal.png'"/>
     
     <!-- テキストウィンドウ -->
     <div id="text-window">

@@ -156,6 +156,15 @@ export class Game {
             this.bgmAudio.pause();
         }
         this.bgmAudio = new Audio(`src/assets/audio/${bgmFile}`);
+        this.bgmAudio.onerror = () => {
+            // srcパスで失敗した場合、代替パスを試す
+            this.bgmAudio = new Audio(`assets/audio/${bgmFile}`);
+            this.bgmAudio!.loop = true;
+            this.bgmAudio!.volume = 0.6;
+            this.bgmAudio!.play().catch(err => {
+                console.warn('BGMの再生に失敗しました:', err);
+            });
+        };
         this.bgmAudio.loop = true;
         this.bgmAudio.volume = 0.6;
         this.bgmAudio.play().catch(err => {
@@ -174,12 +183,29 @@ export class Game {
         
         // 背景画像切り替え
         if (this.currentScene.bg) {
-            this.bgEl.src = `src/assets/images/${this.currentScene.bg}`;
+            // まずsrcパスを試し、失敗したら代替パスを使用
+            const setBackgroundSrc = (path: string) => {
+                this.bgEl.src = path;
+                this.bgEl.onerror = () => {
+                    this.bgEl.src = `assets/images/${this.currentScene.bg}`;
+                    this.bgEl.onerror = null; // エラーハンドラを削除
+                };
+            };
+            setBackgroundSrc(`src/assets/images/${this.currentScene.bg}`);
         }
         
         // 立ち絵画像切り替え
         if (this.currentScene.char) {
-            this.charEl.src = `src/assets/images/${this.currentScene.char}`;
+            // まずsrcパスを試し、失敗したら代替パスを使用
+            const setCharacterSrc = (path: string) => {
+                this.charEl.src = path;
+                this.charEl.onerror = () => {
+                    this.charEl.src = `assets/images/${this.currentScene.char}`;
+                    this.charEl.onerror = null; // エラーハンドラを削除
+                };
+            };
+            setCharacterSrc(`src/assets/images/${this.currentScene.char}`);
+            
             this.charEl.style.display = '';
             this.charEl.classList.add('fade-in');
             // アニメーション後にクラスを削除
