@@ -18,7 +18,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  background-image: url('src/assets/images/bg_title_screen.jpg'); /* タイトル背景画像 */
+  background-image: url('assets/images/bg_title_screen.jpg'); /* タイトル背景画像 */
   background-size: cover;
   background-position: center;
   display: flex;

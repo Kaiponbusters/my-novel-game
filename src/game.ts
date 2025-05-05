@@ -105,6 +105,18 @@ export class Game {
             // エンディングの場合、選択肢を消して終了メッセージ表示
             this.choicesEl.innerHTML = '';
             this.addTextWithAnimation('\n\n--- END ---');
+            
+            // タイトルに戻るボタンを追加
+            setTimeout(() => {
+                const returnBtn = document.createElement('button');
+                returnBtn.textContent = 'タイトルに戻る';
+                returnBtn.className = 'title-return-btn';
+                returnBtn.addEventListener('click', () => {
+                    window.location.href = 'title.html';
+                });
+                this.choicesEl.appendChild(returnBtn);
+            }, 1500); // エンディングメッセージが表示された後、少し遅延させて表示
+            
             return;
         }
         const next = this.scenesMap[nextSceneKey];
