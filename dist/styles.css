@@ -1,162 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
 
-/* 基本スタイル */
-:root {
-  --novel-primary: #6D4C41;
-  --novel-secondary: #FFD54F;
-  --novel-dark: #3E2723;
-  --novel-light: #FFF8E1;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 bg-novel-secondary text-novel-dark font-bold rounded-lg shadow-md 
+           hover:bg-yellow-400 hover:shadow-lg transition-all duration-300 text-sm md:text-base;
+  }
+  
+  .text-window {
+    @apply backdrop-blur-sm bg-opacity-70 bg-novel-dark text-novel-light p-4 rounded-lg shadow-xl
+           border border-novel-light/30;
+  }
+  
+  .character-name {
+    @apply font-bold text-novel-secondary mb-2 text-lg;
+  }
+  
+  .novel-text {
+    @apply text-lg leading-relaxed;
+  }
 }
 
-body {
-  font-family: 'Noto Sans JP', sans-serif;
-  background-color: #1a202c;
-  color: var(--novel-light);
-  margin: 0;
-  padding: 1rem;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ゲームコンテナ */
-#game-container {
-  position: relative;
-  width: 100%;
-  max-width: 64rem;
-  height: 600px;
-  overflow: hidden;
-  border-radius: 0.75rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-/* 背景イメージ */
-#background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 0.5s;
-}
-
-/* キャラクター */
-#character {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  max-height: 500px;
-  z-index: 10;
-  transition: all 0.3s;
-}
-
-/* テキストウィンドウ */
-#text-window {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  margin: 1rem;
-  padding: 1rem;
-  background-color: rgba(62, 39, 35, 0.7);
-  backdrop-filter: blur(4px);
-  color: var(--novel-light);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(255, 248, 225, 0.3);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-/* キャラクター名 */
-#name {
-  font-weight: bold;
-  color: var(--novel-secondary);
-  margin-bottom: 0.5rem;
-  font-size: 1.125rem;
-}
-
-/* テキスト */
-#text {
-  font-size: 1.125rem;
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
-}
-
-/* 選択肢 */
-#choices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-
-#choices button {
-  padding: 0.5rem 1rem;
-  background-color: var(--novel-secondary);
-  color: var(--novel-dark);
-  font-weight: bold;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s;
-  font-size: 0.875rem;
-}
-
-#choices button:hover {
-  background-color: #FFC107;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-/* タイトルバー */
-.title-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(62, 39, 35, 0.7);
-  color: var(--novel-light);
-  padding: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 30;
-}
-
-.title-bar h1 {
-  color: var(--novel-secondary);
-  font-weight: bold;
-  padding: 0 0.75rem;
-  margin: 0;
-  font-size: 1.125rem;
-}
-
-.title-bar .controls {
-  display: flex;
-  gap: 0.5rem;
-  padding: 0 0.75rem;
-}
-
-.title-bar button {
-  font-size: 0.875rem;
-  padding: 0.25rem 0.5rem;
-  background-color: var(--novel-primary);
-  border: none;
-  color: white;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: colors 0.3s;
-}
-
-.title-bar button:hover {
-  background-color: var(--novel-secondary);
-  color: var(--novel-dark);
-}
-
-/* アニメーション */
+/* アニメーション効果 */
 @keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1; }
@@ -164,19 +32,4 @@ body {
 
 .fade-in {
   animation: fadeIn 0.5s ease-in-out;
-}
-
-/* 通知 */
-.notification {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  background-color: var(--novel-primary);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  z-index: 50;
-  animation: fadeIn 0.5s ease-in-out;
-  transition: opacity 0.5s;
 } 
