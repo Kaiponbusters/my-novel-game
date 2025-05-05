@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ビジュアルノベルゲーム</title>
+  <link rel="stylesheet" href="dist/styles.css">
+  <meta name="description" content="女性向けの短編ビジュアルノベルゲーム">
+</head>
+<body>
+  <!-- ゲームコンテナ -->
+  <div id="game-container">
+    <!-- 背景イメージ -->
+    <img id="background" src="src/assets/images/bg_classroom.jpg" alt="背景" />
+    
+    <!-- キャラクター -->
+    <img id="character" src="src/assets/images/ren_normal.png" alt="キャラクター" class="fade-in" />
+    
+    <!-- テキストウィンドウ -->
+    <div id="text-window">
+      <div id="name"></div>
+      <p id="text"></p>
+      <div id="choices"></div>
+    </div>
+    
+    <!-- タイトルバー -->
+    <div class="title-bar">
+      <h1>ノベルゲーム</h1>
+      <div class="controls">
+        <button id="auto-btn">オート</button>
+        <button id="skip-btn">スキップ</button>
+        <button id="save-btn">セーブ</button>
+        <button id="load-btn">ロード</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="dist/index.js"></script>
+  <script>
+    // 選択肢要素をカスタマイズするための拡張スクリプト
+    document.addEventListener('DOMContentLoaded', () => {
+      // Game.tsで生成されるボタンにクラスを適用する
+      const originalAppendChild = Element.prototype.appendChild;
+      Element.prototype.appendChild = function() {
+        const element = originalAppendChild.apply(this, arguments);
+        if (element.tagName === 'BUTTON' && this.id === 'choices') {
+          // クラスはCSSで既に適用されるので不要
+        }
+        return element;
+      };
+    });
+  </script>
+</body>
+</html>

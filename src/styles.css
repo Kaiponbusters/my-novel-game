@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 bg-novel-secondary text-novel-dark font-bold rounded-lg shadow-md 
+           hover:bg-yellow-400 hover:shadow-lg transition-all duration-300 text-sm md:text-base;
+  }
+  
+  .text-window {
+    @apply backdrop-blur-sm bg-opacity-70 bg-novel-dark text-novel-light p-4 rounded-lg shadow-xl
+           border border-novel-light/30;
+  }
+  
+  .character-name {
+    @apply font-bold text-novel-secondary mb-2 text-lg;
+  }
+  
+  .novel-text {
+    @apply text-lg leading-relaxed;
+  }
+}
+
+/* アニメーション効果 */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+} 
