@@ -24,7 +24,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  background-image: url('assets/images/bg_title_screen.jpg'); /* タイトル背景画像 */
+  background-image: url('../SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png'); /* タイトル背景画像 */
   background-size: cover;
   background-position: center;
   display: flex;
@@ -33,9 +33,15 @@
 }
 
 /* GitHub Pagesとローカル両方で動作するためのバックアップ */
-@supports (background-image: url('src/assets/images/bg_title_screen.jpg')) {
+@supports not (background-image: url('../SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png')) {
   .title-container {
-    background-image: url('src/assets/images/bg_title_screen.jpg');
+    background-image: url('src/assets/images/bg_classroom.jpg');
+  }
+}
+
+@supports not (background-image: url('src/assets/images/bg_classroom.jpg')) {
+  .title-container {
+    background-image: url('assets/images/bg_classroom.jpg');
   }
 }
 

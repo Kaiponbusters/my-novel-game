@@ -82,7 +82,7 @@ const scene1C = {
 const scene2A = {
     title: "心の距離が縮まる",
     text: "「ありがとう。少し気持ちが楽になったよ」\n\n蓮は優しく微笑んで、窓辺に腰掛けた。\n\n蓮「良かった。それなら、一緒に帰らない？ちょうど俺も帰るところだし」\n\n夕陽が差し込む廊下を、二人で歩き始めた。",
-    bg: "bg_corridor.jpg",
+    bg: "bg_classroom.jpg",
     char: "ren_smile.png",
     name: "蓮",
     bgm: "bgm2.mp3",
@@ -257,7 +257,7 @@ const scene3C = {
 const scene3D = {
     title: "一緒の時間",
     text: "「一緒に勉強するのはどう？」とあなたが提案すると、蓮は少し驚いた表情を見せた後、嬉しそうに笑った。\n\n蓮「いいね。図書館に行こうか」\n\n二人で図書館へ向かう道すがら、彼との会話が弾んだ。",
-    bg: "bg_library.jpg",
+    bg: "bg_classroom.jpg",
     char: "ren_smile.png",
     name: "蓮",
     bgm: "bgm2.mp3",
@@ -335,7 +335,7 @@ const scene3G = {
 const scene3H = {
     title: "見送る背中",
     text: "「またね」\n\nあなたは蓮の背中を見送った。彼が教室を出るとき、一瞬だけ振り返り微笑んだ気がした。\n\nふと、窓の外を見ると、校庭で部活動を始める彼の姿が見えた。",
-    bg: "bg_window.jpg",
+    bg: "bg_classroom.jpg",
     char: "",
     name: "",
     bgm: "bgm3.mp3",
@@ -529,7 +529,7 @@ const ending6 = {
 const ending7 = {
     title: "勉強の成果",
     text: "あなたは蓮と一緒に真剣に勉強に取り組んだ。時折彼が分かりやすく解説してくれる。\n\n蓮「ここ、こうやって考えると簡単になるんだ」\n\n集中して取り組んだ結果、あなたは少しずつ理解を深めていった。\n\n翌日のテストでは、自信を持って問題に取り組むことができた。\n\n- 成長エンド -",
-    bg: "bg_library.jpg",
+    bg: "bg_classroom.jpg",
     char: "ren_smile.png",
     name: "蓮",
     bgm: "bgm2.mp3",
@@ -544,7 +544,7 @@ const ending7 = {
 const ending8 = {
     title: "心の対話",
     text: "勉強そっちのけで、二人の会話は尽きなかった。\n\n蓮「こんなに話が合う人は初めてかも」\n\n図書館の閉館時間が近づき、気づけば外は暗くなっていた。\n\n蓮「また明日も一緒に...勉強しようか」\n\nその言葉に、あなたは心躍るのを感じた。\n\n- 親密度アップエンド -",
-    bg: "bg_library_evening.jpg",
+    bg: "bg_classroom_evening.jpg",
     char: "ren_smile.png",
     name: "蓮",
     bgm: "bgm3.mp3",

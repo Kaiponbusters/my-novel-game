@@ -28,7 +28,7 @@ export class Game {
         this.saveBtn = document.getElementById('save-btn') as HTMLButtonElement;
         this.loadBtn = document.getElementById('load-btn') as HTMLButtonElement;
         this.bgmAudio = null;
-        
+
         // ボタンイベントリスナーを設定
         this.setupEventListeners();
     }
@@ -39,7 +39,7 @@ export class Game {
             this.isAutoMode = !this.isAutoMode;
             this.autoBtn.classList.toggle('bg-novel-secondary', this.isAutoMode);
             this.autoBtn.classList.toggle('text-novel-dark', this.isAutoMode);
-            
+
             if (this.isAutoMode && this.currentScene && this.currentScene.choices.length === 1) {
                 // 選択肢が1つしかない場合は自動進行
                 this.autoModeTimeout = window.setTimeout(() => {
@@ -77,7 +77,7 @@ export class Game {
         notification.className = 'fixed top-4 right-4 bg-novel-primary text-white px-4 py-2 rounded shadow-lg z-50 fade-in';
         notification.textContent = message;
         document.body.appendChild(notification);
-        
+
         // 数秒後に消す
         setTimeout(() => {
             notification.style.opacity = '0';
@@ -105,7 +105,7 @@ export class Game {
             // エンディングの場合、選択肢を消して終了メッセージ表示
             this.choicesEl.innerHTML = '';
             this.addTextWithAnimation('\n\n--- END ---');
-            
+
             // タイトルに戻るボタンを追加
             setTimeout(() => {
                 const returnBtn = document.createElement('button');
@@ -116,15 +116,15 @@ export class Game {
                 });
                 this.choicesEl.appendChild(returnBtn);
             }, 1500); // エンディングメッセージが表示された後、少し遅延させて表示
-            
+
             return;
         }
         const next = this.scenesMap[nextSceneKey];
         if (next) {
             // トランジション効果
             this.applyTransitionEffect(() => {
-                this.currentScene = next;
-                this.displayScene();
+            this.currentScene = next;
+            this.displayScene();
             });
         }
     }
@@ -135,7 +135,7 @@ export class Game {
         if (this.charEl) {
             this.charEl.style.opacity = '0';
         }
-        
+
         setTimeout(() => {
             callback();
             // フェードイン効果
@@ -174,26 +174,58 @@ export class Game {
 
     private displayScene() {
         if (!this.currentScene) return;
-        
+
         // タイトル表示（オプション）
         document.title = `${this.currentScene.title} | ビジュアルノベルゲーム`;
-        
+
         // BGM切り替え
         this.playBGM(this.currentScene.bgm);
-        
+
         // 背景画像切り替え
         if (this.currentScene.bg) {
-            // まずsrcパスを試し、失敗したら代替パスを使用
+            // 背景画像名に基づいて実際のファイルパスをマッピング
+            const bgMapping: { [key: string]: string } = {
+                "bg_classroom.jpg": "SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png",
+                "bg_classroom_evening.jpg": "SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png",
+                "bg_corridor.jpg": "SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png",
+                "bg_corridor_evening.jpg": "SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png",
+                "bg_window.jpg": "SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png",
+                "bg_window_evening.jpg": "SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png",
+                "bg_library.jpg": "SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png",
+                "bg_library_evening.jpg": "SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png",
+                "bg_rooftop.jpg": "SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png",
+                "bg_sunset.jpg": "SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png",
+                "bg_title_screen.jpg": "SchoolMiniPack_1080p_PNG/SchoolMiniPack_1080p_PNG/smp_classroom1_day1.png",
+            };
+
+            // マッピングされた画像パスを使用
+            const bgPath = bgMapping[this.currentScene.bg] || `src/assets/images/${this.currentScene.bg}`;
+
+            // 画像をセット
             const setBackgroundSrc = (path: string) => {
                 this.bgEl.src = path;
                 this.bgEl.onerror = () => {
-                    this.bgEl.src = `assets/images/${this.currentScene.bg}`;
-                    this.bgEl.onerror = null; // エラーハンドラを削除
+                    // フォールバックパスを試す
+                    let altPath = `assets/images/${this.currentScene.bg}`;
+
+                    // マッピングからのパスも試す
+                    if (bgMapping[this.currentScene.bg]) {
+                        // まずは相対パスを試す
+                        this.bgEl.src = bgMapping[this.currentScene.bg];
+                        this.bgEl.onerror = () => {
+                            // 最終的にフォールバックとして元のパスを使用
+                            this.bgEl.src = altPath;
+                            this.bgEl.onerror = null; // エラーハンドラを削除
+                        };
+                    } else {
+                        this.bgEl.src = altPath;
+                        this.bgEl.onerror = null; // エラーハンドラを削除
+                    }
                 };
             };
-            setBackgroundSrc(`src/assets/images/${this.currentScene.bg}`);
+            setBackgroundSrc(bgPath);
         }
-        
+
         // 立ち絵画像切り替え
         if (this.currentScene.char) {
             // まずsrcパスを試し、失敗したら代替パスを使用
@@ -205,7 +237,7 @@ export class Game {
                 };
             };
             setCharacterSrc(`src/assets/images/${this.currentScene.char}`);
-            
+
             this.charEl.style.display = '';
             this.charEl.classList.add('fade-in');
             // アニメーション後にクラスを削除
@@ -215,7 +247,7 @@ export class Game {
         } else {
             this.charEl.style.display = 'none';
         }
-        
+
         // キャラクター名表示
         if (this.currentScene.name) {
             this.nameEl.textContent = this.currentScene.name;
@@ -224,14 +256,14 @@ export class Game {
             this.nameEl.textContent = '';
             this.nameEl.style.display = 'none';
         }
-        
+
         // テキスト表示（アニメーション付き）
         this.textEl.textContent = '';
         this.textEl.textContent = this.currentScene.text;
-        
+
         // 選択肢クリア
         this.choicesEl.innerHTML = '';
-        
+
         // 選択肢ボタン生成
         this.currentScene.choices.forEach((choice: any) => {
             const btn = document.createElement('button');
@@ -241,7 +273,7 @@ export class Game {
             });
             this.choicesEl.appendChild(btn);
         });
-        
+
         // オートモードの場合、選択肢が1つだけなら自動進行
         if (this.isAutoMode && this.currentScene.choices.length === 1) {
             this.autoModeTimeout = window.setTimeout(() => {
